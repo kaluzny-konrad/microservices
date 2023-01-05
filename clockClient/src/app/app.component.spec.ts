@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'clock-client'`, () => {
+  it(`should have as title 'clockclient'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('clock-client');
+    expect(app.title).toEqual('clockclient');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('clock-client app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('clockclient app is running!');
   });
 });

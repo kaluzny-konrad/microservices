@@ -23,6 +23,7 @@ func main() {
 
 func clockHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
+		log.Printf("Serving clock\n")
 		http.ServeFile(w, r, "index.html")
 	} else {
 		http.Error(w, "Method is not supported.", http.StatusNotFound)
@@ -31,6 +32,7 @@ func clockHandler(w http.ResponseWriter, r *http.Request) {
 
 func clockWidgetHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
+		log.Printf("Serving clock widget\n")
 		http.ServeFile(w, r, "clockWidget.html")
 	} else {
 		http.Error(w, "Method is not supported.", http.StatusNotFound)

@@ -7,19 +7,17 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent  implements OnInit {
-  title = 'clock-client';
+export class AppComponent implements OnInit {
+  title = 'clockclient';
   clockHtml: SafeHtml | undefined;
 
   constructor(
     private http:HttpClient,
     private sanitizer:DomSanitizer
-  ){
-
-  }
+  ){}
 
   ngOnInit(){
-    this.http.get('localhost:7001/api/clockWidget',{responseType:'text'}).subscribe(res=>{
+    this.http.get('/api/clockWidget',{responseType:'text'}).subscribe(res=>{
       this.clockHtml = this.sanitizer.bypassSecurityTrustHtml(res);
     })
   }
