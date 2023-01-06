@@ -12,8 +12,11 @@ func main() {
 	http.HandleFunc("/", clockHandler)
 	http.Handle("/css/", http.FileServer(http.Dir("static")))
 	http.Handle("/js/", http.FileServer(http.Dir("static")))
-	http.HandleFunc("/api/clockWidget", clockWidgetHandler)
-	http.HandleFunc("/api/clock", clockApiHandler)
+
+	http.HandleFunc("/api/clockWidget/clockHtml", clockWidgetHtmlHandler)
+	http.HandleFunc("/api/clockWidget/clockJs", clockWidgetJsHandler)
+
+	http.HandleFunc("/api/clockWidget/clockText", clockWidgetTextHandler)
 
 	fmt.Printf("Starting server at port 7001\n")
 	if err := http.ListenAndServe(":7001", nil); err != nil {
@@ -23,23 +26,31 @@ func main() {
 
 func clockHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		log.Printf("Serving clock\n")
 		http.ServeFile(w, r, "index.html")
 	} else {
 		http.Error(w, "Method is not supported.", http.StatusNotFound)
 	}
 }
 
-func clockWidgetHandler(w http.ResponseWriter, r *http.Request) {
+func clockWidgetHtmlHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		log.Printf("Serving clock widget\n")
-		http.ServeFile(w, r, "clockWidget.html")
+		log.Printf("Serving clock widget.html\n")
+		http.ServeFile(w, r, "api/clockWidget.html")
 	} else {
 		http.Error(w, "Method is not supported.", http.StatusNotFound)
 	}
 }
 
-func clockApiHandler(w http.ResponseWriter, r *http.Request) {
+func clockWidgetJsHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "GET" {
+		log.Printf("Serving clock widget.js\n")
+		http.ServeFile(w, r, "api/clockWidget.js")
+	} else {
+		http.Error(w, "Method is not supported.", http.StatusNotFound)
+	}
+}
+
+func clockWidgetTextHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Type", "application/json")
